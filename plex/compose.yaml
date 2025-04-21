@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    network_mode: bridge
+    volumes:
+      - /volume1/docker/plex/config:/config
+      - /volume1/docker/plex/transcode:/transcode
+      - type: bind
+        source: /volume1/media
+        target: /data/media
+        read_only: true
+      - type: bind
+        source: /volume1/photo
+        target: /data/photo
+        read_only: true
+      - type: bind
+        source: /volume1/dvr
+        target: /data/dvr
+      - type: bind
+        source: /volume1/tmp
+        target: /data/tmp
+    ports:
+      - 1900/udp
+      - 32400:32400/tcp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469/tcp
+      - 8324:8324/tcp
+    environment:
+      - TZ=America/Chicago
+      - ADVERTISE_IP=${ADVERTISE_IP}
+      - ALLOWED_NETWORKS=${ALLOWED_NETWORKS}
+      - PLEX_UID=${PLEX_UID}
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    restart: 'unless-stopped'

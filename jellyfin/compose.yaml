@@ -1,0 +1,25 @@
+version: '3.5'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    network_mode: 'bridge'
+    volumes:
+      - /volume1/docker/jellyfin/config:/config
+      - /volume1/docker/jellyfin/cache:/cache
+      - type: bind
+        source: /volume1/media/audio
+        target: /media/audio
+        read_only: true
+      - type: bind
+        source: /volume1/media/video
+        target: /media/video
+        read_only: true
+      - type: bind
+        source: /volume1/media/dvr
+        target: /media/dvr
+    ports:
+      - 8096:8096
+    environment:
+      - TZ=America/Chicago
+    restart: 'unless-stopped'
