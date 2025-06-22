@@ -1,0 +1,27 @@
+---
+version: "3"
+services:
+  syncthing-daisaa:
+    image: syncthing/syncthing:latest
+    container_name: syncthing-daisaa
+    hostname: nas
+    environment:
+      - TZ=America/Chicago
+      - PUID=1026
+      - PGID=100
+    volumes:
+      - /volume1/docker/syncthing/daisaa/config:/var/syncthing
+      - type: bind
+        source: /volume1/homes/daisaa
+        target: /data
+    ports:
+      - 8385:8384
+      - 22001:22000/tcp
+      - 22001:22000/udp
+      - 21028:21027/udp
+    restart: 'unless-stopped'
+    healthcheck:
+      test: curl -fkLsS -m 2 127.0.0.1:8384/rest/noauth/health | grep -o --color=never OK || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 3
