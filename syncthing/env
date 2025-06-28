@@ -1,0 +1,12 @@
+IMAGE_TAG=latest
+INSTANCE=myuser
+SERVERNAME=myhost
+TZ=America/Chicago
+PUID=1000
+PGID=1000
+PORTHTTP=8386
+PORTQUIC=22002
+PORTDISC=21029
+CONFIG=/volume1/docker/syncthing/myuser/config
+HOST_PATH1=/volume1/homes/myuser/sync
+CONTAINER_PATH1=/data/sync
