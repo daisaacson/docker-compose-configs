@@ -10,7 +10,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
     volumes:
-      - /volume1/docker/syncthing/${INSTANCE}/config:/var/syncthing
+      - ${CONFIG}:/var/syncthing/config
       - type: bind
         source: ${HOST_PATH1}
         target: ${CONTAINER_PATH1}
